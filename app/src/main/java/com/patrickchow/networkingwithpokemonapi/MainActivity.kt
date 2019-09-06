@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.Gravity
 import android.widget.Toast
 import com.patrickchow.networkingwithpokemonapi.Model.Pokemon
+import com.patrickchow.networkingwithpokemonapi.Model.SerializedPokemon
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.*
 import java.io.IOException
@@ -23,6 +24,7 @@ import java.net.URL
     2. Create Pokemon Interface
     3. Create the method "getPokemonByNameOrId" to use the interface
     4. Implement Callback<Pokemon> and make appropriate functionality
+    5. Move to Details Activity to display the details of the searched Pokemon
  */
 
 class MainActivity : AppCompatActivity(), Callback<Pokemon>{
@@ -35,28 +37,34 @@ class MainActivity : AppCompatActivity(), Callback<Pokemon>{
     //This is called when a response happens. So after the API receives your request
     override fun onResponse(call: Call<Pokemon>, response: Response<Pokemon>) {
         if(response.isSuccessful) {
-            tv_pokemon_name.text = "Name: ${response.body()?.name.toString()}"
-            tv_pokemon_id.text = "ID: ${response.body()?.id.toString()}"
 
-            //Loop through the list of types and append it to a StringBuilder to set it as text for tv_pokemon_types
-            val typesList = response.body()!!.types
-            var sbTypes = StringBuilder()
-            sbTypes.append("Types:\n")
-            for(index in 0 until typesList.size)
-                sbTypes.append("${typesList[index].type.name}\n")
-            tv_pokemon_types.text = sbTypes
+            val searchedPokemon = response.body() as Pokemon
 
-            //Loop through the list of abilities and append it to a StringBuilder to set it as text for tv_pokemon_abilities
-            val abilitiesList = response.body()!!.abilities
-            var sbAbilities = StringBuilder()
-            sbAbilities.append("Abilities:\n")
-            for(index in 0 until  abilitiesList.size)
-                sbAbilities.append("${abilitiesList[index].ability.name}\n")
-            tv_pokemon_abilities.text = sbAbilities
+            //Get all of the abilities and place them into a mutable list
+            val listOfAbilities = mutableListOf<String>()
+            searchedPokemon.abilities.forEach {
+                listOfAbilities.add(it.ability.name)
+            }
 
-            imageURL = response.body()!!.sprites.front_default
-            val serviceIntent = Intent(this, ImageDownloadService::class.java)
-            this.startService(serviceIntent)
+            //Get all of the types and place them into a mutable list
+            val listOfTypes = mutableListOf<String>()
+            searchedPokemon.types.forEach {
+                listOfTypes.add(it.type.name)
+            }
+
+            //Make a serialized pokemon in order to move an object to another activity
+            val mySerializedPokemon = SerializedPokemon(
+                searchedPokemon.name,
+                searchedPokemon.sprites.front_default,
+                searchedPokemon.id,
+                listOfAbilities,
+                listOfTypes
+            )
+
+            //Now go to the details activity and pass in information for the intent
+            val detailsIntent = Intent(this, DetailsActivity::class.java)
+            detailsIntent.putExtra("mySerializedPokemonKey", mySerializedPokemon)
+            startActivity(detailsIntent)
 
         }
         else {
@@ -81,9 +89,5 @@ class MainActivity : AppCompatActivity(), Callback<Pokemon>{
 
     fun getPokemonByNameOrId(pokemonId: String){
         pokemonService.getPokemonById(pokemonId).enqueue(this)
-    }
-
-    companion object{
-        var imageURL: String = ""
     }
 }

@@ -15,6 +15,16 @@ data class Pokemon (
     val types: List<ListOfTypes>
 )
 
+data class SerializedPokemon(
+
+    var name: String,
+    var sprites: String,
+    var id: Int,
+    var ability: MutableList<String>,
+    var type: MutableList<String>
+
+):Serializable
+
 data class Sprites (
     val front_default: String
 )
