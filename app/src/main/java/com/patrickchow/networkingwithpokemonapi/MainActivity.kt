@@ -1,5 +1,8 @@
 package com.patrickchow.networkingwithpokemonapi
 
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
@@ -7,7 +10,12 @@ import android.widget.Toast
 import com.patrickchow.networkingwithpokemonapi.Model.Pokemon
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.*
+import java.io.IOException
+import java.io.InputStream
 import java.lang.StringBuilder
+import java.net.HttpURLConnection
+import java.net.MalformedURLException
+import java.net.URL
 
 /*
     Steps Taken
@@ -46,6 +54,10 @@ class MainActivity : AppCompatActivity(), Callback<Pokemon>{
                 sbAbilities.append("${abilitiesList[index].ability.name}\n")
             tv_pokemon_abilities.text = sbAbilities
 
+            imageURL = response.body()!!.sprites.front_default
+            val serviceIntent = Intent(this, ImageDownloadService::class.java)
+            this.startService(serviceIntent)
+
         }
         else {
             val errorToast = Toast.makeText(applicationContext, "Invalid Name or ID", Toast.LENGTH_SHORT)
@@ -69,5 +81,9 @@ class MainActivity : AppCompatActivity(), Callback<Pokemon>{
 
     fun getPokemonByNameOrId(pokemonId: String){
         pokemonService.getPokemonById(pokemonId).enqueue(this)
+    }
+
+    companion object{
+        var imageURL: String = ""
     }
 }
