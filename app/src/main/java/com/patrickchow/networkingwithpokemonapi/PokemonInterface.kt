@@ -1,7 +1,7 @@
 package com.patrickchow.networkingwithpokemonapi
 
 import com.google.gson.GsonBuilder
-import com.patrickchow.networkingwithpokemonapi.Model.PokemonModel
+import com.patrickchow.networkingwithpokemonapi.Model.Pokemon
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -10,10 +10,9 @@ import retrofit2.http.Path
 
 interface PokemonInterface {
 
-    @GET("pokemon/{id}")
-    fun getPokemonById(@Path("id") id: String): Call<List<PokemonModel>>
+    @GET("pokemon/{name-id}")
+    fun getPokemonById(@Path("name-id") nameOrId: String): Call<Pokemon>
 
-    class Factory{
         companion object{
             val BASE_URL: String = "https://pokeapi.co/api/v2/"
 
@@ -29,5 +28,4 @@ interface PokemonInterface {
                     .create(PokemonInterface::class.java)
             }
         }
-    }
 }

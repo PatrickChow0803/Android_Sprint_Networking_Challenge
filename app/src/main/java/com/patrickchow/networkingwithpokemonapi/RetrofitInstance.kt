@@ -1,7 +1,7 @@
 package com.patrickchow.networkingwithpokemonapi
 
 import com.google.gson.GsonBuilder
-import com.patrickchow.networkingwithpokemonapi.Model.PokemonModel
+//import com.patrickchow.networkingwithpokemonapi.Model.PokemonModel
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

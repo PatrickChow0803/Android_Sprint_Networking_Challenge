@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.patrickchow.networkingwithpokemonapi.Model.PokemonModel
+import com.patrickchow.networkingwithpokemonapi.Model.Pokemon
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
@@ -16,16 +16,13 @@ import retrofit2.converter.gson.GsonConverterFactory
     2. Create Retrofit Instance
     3. Create Pokemon Interface
  */
-class MainActivity : AppCompatActivity(), Callback<List<PokemonModel>> {
-    override fun onFailure(call: Call<List<PokemonModel>>, t: Throwable) {
-        Toast.makeText(this, "Fail", Toast.LENGTH_SHORT).show()
+class MainActivity : AppCompatActivity(), Callback<Pokemon>{
+    override fun onFailure(call: Call<Pokemon>, t: Throwable) {
+        Toast.makeText(this, "Failure", Toast.LENGTH_SHORT).show()
     }
 
-    override fun onResponse(
-        call: Call<List<PokemonModel>>,
-        response: Response<List<PokemonModel>>
-    ) {
-       Toast.makeText(this, response.body()!![0].id, Toast.LENGTH_SHORT).show()
+    override fun onResponse(call: Call<Pokemon>, response: Response<Pokemon>) {
+        tv_pokemon_name.text = response.body()?.name.toString()
     }
 
     lateinit var pokemonService: PokemonInterface
@@ -34,7 +31,7 @@ class MainActivity : AppCompatActivity(), Callback<List<PokemonModel>> {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        pokemonService = PokemonInterface.Factory.create()
+        pokemonService = PokemonInterface.create()
 
         btn_test.setOnClickListener {
             getPokemonById(1)
