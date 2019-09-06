@@ -7,6 +7,7 @@ import android.widget.Toast
 import com.patrickchow.networkingwithpokemonapi.Model.Pokemon
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.*
+import java.lang.StringBuilder
 
 /*
     Steps Taken
@@ -15,14 +16,37 @@ import retrofit2.*
     3. Create the method "getPokemonByNameOrId" to use the interface
     4. Implement Callback<Pokemon> and make appropriate functionality
  */
+
 class MainActivity : AppCompatActivity(), Callback<Pokemon>{
+    //This is called when the request is failed before even being able to request something from the API
+    //Usually means that either the model is wrong or the interface is.
     override fun onFailure(call: Call<Pokemon>, t: Throwable) {
         Toast.makeText(this, "Failure", Toast.LENGTH_SHORT).show()
     }
 
+    //This is called when a response happens. So after the API receives your request
     override fun onResponse(call: Call<Pokemon>, response: Response<Pokemon>) {
-        if(response.isSuccessful)
-            tv_pokemon_name.text = response.body()?.name.toString()
+        if(response.isSuccessful) {
+            tv_pokemon_name.text = "Name: ${response.body()?.name.toString()}"
+            tv_pokemon_id.text = "ID: ${response.body()?.id.toString()}"
+
+            //Loop through the list of types and append it to a StringBuilder to set it as text for tv_pokemon_types
+            val typesList = response.body()!!.types
+            var sbTypes = StringBuilder()
+            sbTypes.append("Types:\n")
+            for(index in 0 until typesList.size)
+                sbTypes.append("${typesList[index].type.name}\n")
+            tv_pokemon_types.text = sbTypes
+
+            //Loop through the list of abilities and append it to a StringBuilder to set it as text for tv_pokemon_abilities
+            val abilitiesList = response.body()!!.abilities
+            var sbAbilities = StringBuilder()
+            sbAbilities.append("Abilities:\n")
+            for(index in 0 until  abilitiesList.size)
+                sbAbilities.append("${abilitiesList[index].ability.name}\n")
+            tv_pokemon_abilities.text = sbAbilities
+
+        }
         else {
             val errorToast = Toast.makeText(applicationContext, "Invalid Name or ID", Toast.LENGTH_SHORT)
             errorToast.setGravity(Gravity.CENTER, 0, 0)
