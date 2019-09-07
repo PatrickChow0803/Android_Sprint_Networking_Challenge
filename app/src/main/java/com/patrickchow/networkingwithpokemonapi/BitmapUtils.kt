@@ -47,3 +47,4 @@ fun decodeSampledBitmapFileDescriptor(
         BitmapFactory.decodeFileDescriptor(imageFile.fileDescriptor, null, this)
     }
 }
+

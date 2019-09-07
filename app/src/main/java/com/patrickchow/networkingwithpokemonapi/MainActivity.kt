@@ -1,24 +1,16 @@
 package com.patrickchow.networkingwithpokemonapi
 
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
-import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import com.patrickchow.networkingwithpokemonapi.Model.Pokemon
 import com.patrickchow.networkingwithpokemonapi.Model.SerializedPokemon
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.*
-import java.io.IOException
-import java.io.InputStream
-import java.lang.StringBuilder
-import java.net.HttpURLConnection
-import java.net.MalformedURLException
-import java.net.URL
+
 
 /*
     Steps Taken
@@ -42,8 +34,16 @@ class MainActivity : AppCompatActivity(), Callback<Pokemon>{
 
             val searchedPokemon = response.body() as Pokemon
 
+
             val addedPokemon = TextView(this)
+
             addedPokemon.text = searchedPokemon.name
+            addedPokemon.textSize = 20f
+            addedPokemon.setOnClickListener {
+                //Hide the selected pokemon from the list if it is touched
+                addedPokemon.height = 0
+                Toast.makeText(this, "Pokemon has been removed from favorites", Toast.LENGTH_SHORT).show()
+            }
             ll_searched_pokemon.addView(addedPokemon)
 
             //Get all of the abilities and place them into a mutable list

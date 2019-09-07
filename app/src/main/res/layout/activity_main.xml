@@ -27,9 +27,10 @@
         android:layout_height="wrap_content"/>
 
     <TextView
-        android:id="@+id/tv_searched_pokemon"
-        android:text="List of searched Pokemon:"
+        android:id="@+id/tv_favorite_pokemon"
+        android:text="List of favorite Pokemon:"
         app:layout_constraintTop_toBottomOf="@id/btn_test"
+        android:textSize="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_margin="16dp"
         android:layout_width="wrap_content"
@@ -38,7 +39,7 @@
 
     <ScrollView
         android:id="@+id/sv_searched_pokemon"
-        app:layout_constraintTop_toBottomOf="@id/tv_searched_pokemon"
+        app:layout_constraintTop_toBottomOf="@id/tv_favorite_pokemon"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_margin="16dp"
         android:layout_width="match_parent"

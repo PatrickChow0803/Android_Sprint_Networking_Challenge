@@ -1,7 +1,5 @@
 package com.patrickchow.networkingwithpokemonapi
 
-import android.app.DownloadManager
-import android.content.BroadcastReceiver
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.patrickchow.networkingwithpokemonapi.Model.SerializedPokemon
