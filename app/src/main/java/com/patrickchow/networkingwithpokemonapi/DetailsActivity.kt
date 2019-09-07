@@ -28,6 +28,12 @@ class DetailsActivity : AppCompatActivity() {
             sbTypes.append("${typesList[index]}\n")
         tv_pokemon_types.text = sbTypes
 
+        //Does the same exact thing as the above. Just wanted to use this for testing.
+        /*typesList.forEach {
+            sbTypes.append("$it\n")
+        }
+        tv_pokemon_types.text = sbTypes*/
+
         //Loop through the list of abilities and append it to a StringBuilder to set it as text for tv_pokemon_abilities
         val abilitiesList = pokemonDetails!!.ability
         var sbAbilities = StringBuilder()
