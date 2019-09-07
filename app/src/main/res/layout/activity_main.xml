@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/et_pokemon_name_or_id"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:hint="Enter name or id of pokemon here"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btn_test"
+        app:layout_constraintTop_toBottomOf="@id/et_pokemon_name_or_id"
+        android:text="Find pokemon details"
+        android:layout_margin="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/tv_favorite_pokemon"
+        android:text="List of favorite Pokemon:"
+        app:layout_constraintTop_toBottomOf="@id/btn_test"
+        android:textSize="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_margin="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <ScrollView
+        android:id="@+id/sv_searched_pokemon"
+        app:layout_constraintTop_toBottomOf="@id/tv_favorite_pokemon"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/ll_searched_pokemon"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </ScrollView>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
