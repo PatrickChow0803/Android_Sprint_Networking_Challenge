@@ -1,5 +1,9 @@
 package com.patrickchow.networkingwithpokemonapi
 
+/*
+    CODE TAKEN FROM BRIAN COOLEY's guided project
+ */
+
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import java.io.IOException
@@ -7,6 +11,8 @@ import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
+
+
 
 object NetworkAdapter {
     val GET = "GET"

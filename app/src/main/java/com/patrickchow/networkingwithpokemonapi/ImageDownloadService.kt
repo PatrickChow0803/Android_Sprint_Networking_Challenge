@@ -1,5 +1,8 @@
 package com.patrickchow.networkingwithpokemonapi
 
+/*
+    CODE TAKEN FROM BRIAN COOLEY's guided project
+ */
 
 import android.app.Service
 import android.content.Intent
@@ -8,7 +11,6 @@ import android.util.Log
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import java.lang.UnsupportedOperationException
 
-// TODO: S04M04-1 create new service
 class ImageDownloadService: Service(){
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {

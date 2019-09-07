@@ -6,6 +6,8 @@ import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import com.patrickchow.networkingwithpokemonapi.Model.Pokemon
 import com.patrickchow.networkingwithpokemonapi.Model.SerializedPokemon
@@ -39,6 +41,10 @@ class MainActivity : AppCompatActivity(), Callback<Pokemon>{
         if(response.isSuccessful) {
 
             val searchedPokemon = response.body() as Pokemon
+
+            val addedPokemon = TextView(this)
+            addedPokemon.text = searchedPokemon.name
+            ll_searched_pokemon.addView(addedPokemon)
 
             //Get all of the abilities and place them into a mutable list
             val listOfAbilities = mutableListOf<String>()

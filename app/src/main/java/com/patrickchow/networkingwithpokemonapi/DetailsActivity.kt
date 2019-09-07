@@ -5,15 +5,10 @@ import android.content.BroadcastReceiver
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.patrickchow.networkingwithpokemonapi.Model.SerializedPokemon
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_details.*
 
 class DetailsActivity : AppCompatActivity() {
-
-    lateinit var imageDownloadReceiver: BroadcastReceiver
-
-    lateinit var downloadManager: DownloadManager
-
-    lateinit var downloadReceiver: BroadcastReceiver
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +35,9 @@ class DetailsActivity : AppCompatActivity() {
         for(index in 0 until  abilitiesList.size)
             sbAbilities.append("${abilitiesList[index]}\n")
         tv_pokemon_abilities.text = sbAbilities
-    }
 
+        //Load the image using Picasso. Give it the URL and tell it to place it into iv_pokemon_image
+        Picasso.get().load(pokemonDetails?.sprites).into(iv_pokemon_image)
+    }
 
 }
